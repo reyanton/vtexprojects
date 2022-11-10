@@ -1,0 +1,950 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="4/9/2020 9:55:30 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="ING-ICG5"
+  DTS:CreatorName="GDAVID\ReinaldoVillarroel"
+  DTS:DTSID="{7C3F17B4-AC65-40C7-983C-1205E03B265C}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.93"
+  DTS:LocaleID="6154"
+  DTS:ObjectName="Package"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="0"
+  DTS:VersionBuild="78"
+  DTS:VersionGUID="{021C5449-89EC-4226-9994-F142DA4D6887}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[local]"
+      DTS:CreationName="ADO.NET:SQL"
+      DTS:DTSID="{080AAA3D-E159-47A0-98BB-2C92112695F2}"
+      DTS:ObjectName="local">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=ING-ICG5;Integrated Security=SSPI;Connect Timeout=30;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[MySMTP]"
+      DTS:CreationName="SMTP"
+      DTS:DTSID="{2B8AD9BF-3D43-4CE4-AE56-8EB00A27286E}"
+      DTS:ObjectName="MySMTP">
+      <DTS:ObjectData>
+        <SmtpConnectionManager
+          ConnectionString="SmtpServer=smtp.gmail.com;UseWindowsAuthentication=True;EnableSsl=False;Timeout=60000;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Proyectos]"
+      DTS:CreationName="FILE"
+      DTS:DTSID="{96BFA84E-38B0-438B-9081-339FB840C842}"
+      DTS:ObjectName="Proyectos">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:FileUsageType="2"
+          DTS:ConnectionString="C:\Proyectos" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Respaldos]"
+      DTS:CreationName="FILE"
+      DTS:DTSID="{F547FAF2-0BD2-4231-A891-F8B425506063}"
+      DTS:ObjectName="Respaldos">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:FileUsageType="2"
+          DTS:ConnectionString="C:\Respaldos" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{04F5F777-1BA3-40EC-98B8-19F6012CE675}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="NombreLogico">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{F966E4DA-E20C-4095-8286-8F82343C10A9}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="NombreLogicoLog">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{5C690DAE-8ACD-4413-ABBB-CEC5348658AB}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Respaldo">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{8D4090E9-5A3C-4EBE-BA0D-D317B9F1ADAB}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="RutaDatos">
+      <DTS:VariableValue
+        DTS:DataType="8">C:\Respaldos\Data</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{6DC6B4B7-4B48-4447-826B-21F808EAA4B5}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="RutaDestino">
+      <DTS:VariableValue
+        DTS:DataType="8">C:\Respaldos</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{593685DA-8775-4787-BB35-3395B55FC11E}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="RutaOrigen">
+      <DTS:VariableValue
+        DTS:DataType="8">C:\FTP</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{5B890FAD-3791-4443-9A4B-537EA523E3F4}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="SendMailBody">
+      <DTS:VariableValue
+        DTS:DataType="8">Proceso satisfactorio.</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{8CFE3949-7E46-4051-886C-0740AC86808B}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="SendMailFrom">
+      <DTS:VariableValue
+        DTS:DataType="8">reinaldovillarroel@grupodavid.com</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{2691C55E-0568-4633-A593-9666FBE5A416}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="SendMailSubject">
+      <DTS:VariableValue
+        DTS:DataType="8">Comprobación de Backups Integrity</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{5BE3B035-1877-4ED5-9D05-DB56440F2600}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="SendMailTo">
+      <DTS:VariableValue
+        DTS:DataType="8">reinaldo.vanton@gmail.com</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Copiar Respaldos"
+      DTS:CreationName="STOCK:FOREACHLOOP"
+      DTS:Description="Contenedor de bucles Foreach"
+      DTS:DTSID="{5AF5BE75-CD35-4BC6-BC2E-A905565A23DA}"
+      DTS:ExecutableType="STOCK:FOREACHLOOP"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Copiar Respaldos">
+      <DTS:ForEachEnumerator
+        DTS:CreationName="Microsoft.ForEachFileEnumerator"
+        DTS:DTSID="{03D3D51B-2DF5-43CB-8CCF-99E3D991984B}"
+        DTS:ObjectName="{03D3D51B-2DF5-43CB-8CCF-99E3D991984B}">
+        <DTS:ObjectData>
+          <ForEachFileEnumeratorProperties>
+            <FEFEProperty
+              Folder="C:\FTP" />
+            <FEFEProperty
+              FileSpec="*.bak" />
+            <FEFEProperty
+              FileNameRetrievalType="0" />
+            <FEFEProperty
+              Recurse="0" />
+          </ForEachFileEnumeratorProperties>
+        </DTS:ObjectData>
+      </DTS:ForEachEnumerator>
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:DTSID="{0300D993-3B8D-486C-941C-5FDA04E38505}"
+          DTS:IncludeInDebugDump="2345"
+          DTS:Namespace="User"
+          DTS:ObjectName="Archivos">
+          <DTS:VariableValue
+            DTS:DataType="8"
+            xml:space="preserve"></DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Copiar Respaldos\Copiar Archivos"
+          DTS:CreationName="Microsoft.FileSystemTask"
+          DTS:DelayValidation="True"
+          DTS:Description="Tarea Sistema de archivos"
+          DTS:DTSID="{0FA68F00-45A8-4A6F-B98B-790C4FEB50CA}"
+          DTS:ExecutableType="Microsoft.FileSystemTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Copiar Archivos"
+          DTS:TaskContact="File System Task;Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <FileSystemData
+              TaskSourcePath="User::Archivos"
+              TaskIsSourceVariable="True"
+              TaskDestinationPath="User::RutaDestino"
+              TaskIsDestinationVariable="True" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:ForEachVariableMappings>
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{9C9308DF-CAF3-4073-A531-947A685E9905}"
+          DTS:ObjectName="{9C9308DF-CAF3-4073-A531-947A685E9905}"
+          DTS:ValueIndex="0"
+          DTS:VariableName="User::Archivos" />
+      </DTS:ForEachVariableMappings>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Eliminar backups viejos"
+      DTS:CreationName="Microsoft.ExecuteProcess"
+      DTS:Description="Tarea Ejecutar proceso"
+      DTS:DTSID="{DBF29265-F61D-4E2B-AB48-D0B6CF115C71}"
+      DTS:ExecutableType="Microsoft.ExecuteProcess"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Eliminar backups viejos"
+      DTS:TaskContact="Execute Process Task;Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:PropertyExpression
+        DTS:Name="Arguments">"Remove-item *.bak"</DTS:PropertyExpression>
+      <DTS:PropertyExpression
+        DTS:Name="WorkingDirectory">@[User::RutaDestino]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <ExecuteProcessData
+          Executable="C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"
+          RequireFullFileName="False"
+          Arguments="Remove-item *.bak"
+          WorkingDirectory="C:\Respaldos" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Enviar Correo"
+      DTS:CreationName="Microsoft.ExecuteProcess"
+      DTS:Description="Tarea Ejecutar proceso"
+      DTS:DTSID="{a6417520-7587-460a-b2ab-cbfa3a73f9cd}"
+      DTS:ExecutableType="Microsoft.ExecuteProcess"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Enviar Correo"
+      DTS:TaskContact="Execute Process Task;Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:PropertyExpression
+        DTS:Name="Arguments">"powershell.exe -ExecutionPolicy Bypass -File PS_EnviarCorreos.ps1"</DTS:PropertyExpression>
+      <DTS:PropertyExpression
+        DTS:Name="WorkingDirectory">@[User::RutaDestino]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <ExecuteProcessData
+          Executable="C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"
+          RequireFullFileName="False"
+          Arguments="powershell.exe -ExecutionPolicy Bypass -File PS_EnviarCorreos.ps1"
+          WorkingDirectory="C:\Respaldos" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Restaurar Respaldos"
+      DTS:CreationName="STOCK:FOREACHLOOP"
+      DTS:Description="Contenedor de bucles Foreach"
+      DTS:DTSID="{0E550B7F-4A0C-4120-9D73-654FF43F0330}"
+      DTS:ExecutableType="STOCK:FOREACHLOOP"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Restaurar Respaldos">
+      <DTS:ForEachEnumerator
+        DTS:CreationName="Microsoft.ForEachFileEnumerator"
+        DTS:DTSID="{087EAB4C-8713-4757-871D-B851646138AF}"
+        DTS:ObjectName="{03D3D51B-2DF5-43CB-8CCF-99E3D991984B}">
+        <DTS:ObjectData>
+          <ForEachFileEnumeratorProperties>
+            <FEFEProperty
+              Folder="C:\Respaldos" />
+            <FEFEProperty
+              FileSpec="*.bak" />
+            <FEFEProperty
+              FileNameRetrievalType="1" />
+            <FEFEProperty
+              Recurse="0" />
+          </ForEachFileEnumeratorProperties>
+        </DTS:ObjectData>
+      </DTS:ForEachEnumerator>
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:DTSID="{3683630C-DB16-41FA-84F3-565FC633E440}"
+          DTS:IncludeInDebugDump="2345"
+          DTS:Namespace="User"
+          DTS:ObjectName="Archivos">
+          <DTS:VariableValue
+            DTS:DataType="8"
+            xml:space="preserve"></DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Restaurar Respaldos\Borrar BD"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Tarea Ejecutar SQL"
+          DTS:DTSID="{3B2C63A8-60ED-4D35-8EA2-66414ED05047}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Borrar BD"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:PropertyExpression
+            DTS:Name="SqlStatementSource">"DROP DATABASE DBVALIDAR"</DTS:PropertyExpression>
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{080AAA3D-E159-47A0-98BB-2C92112695F2}"
+              SQLTask:SqlStatementSource="DROP DATABASE DBVALIDAR" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Restaurar Respaldos\Chequear estructura"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Tarea Ejecutar SQL"
+          DTS:DTSID="{E88F53D1-6E0A-4028-9656-B69385F01973}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Chequear estructura"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:PropertyExpression
+            DTS:Name="SqlStatementSource">"
+DBCC CHECKDB('DBVALIDAR')
+
+"</DTS:PropertyExpression>
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{080AAA3D-E159-47A0-98BB-2C92112695F2}"
+              SQLTask:SqlStatementSource="&#xA;DBCC CHECKDB('DBVALIDAR')&#xA;&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Restaurar Respaldos\Error CheckDB"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Tarea Ejecutar SQL"
+          DTS:DTSID="{D5F83894-A21F-4B0D-9100-A74CFCA4E5ED}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Error CheckDB"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="1">
+          <DTS:Variables />
+          <DTS:PropertyExpression
+            DTS:Name="SqlStatementSource">"
+INSERT INTO msdb..RevisionBackups(Respaldo, Estatus) VALUES ('" + @[User::Respaldo] +"', 'Error de estructura de BD')
+"</DTS:PropertyExpression>
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{080AAA3D-E159-47A0-98BB-2C92112695F2}"
+              SQLTask:SqlStatementSource="&#xA;INSERT INTO msdb..RevisionBackups(Respaldo, Estatus) VALUES ('', 'Error de estructura de BD')&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="NewParameterName"
+                SQLTask:DtsVariableName="User::Respaldo"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="16"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Restaurar Respaldos\Error Restore"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Tarea Ejecutar SQL"
+          DTS:DTSID="{F867F00B-0352-4301-A22D-2C79C8B7BCB4}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Error Restore"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="2">
+          <DTS:Variables />
+          <DTS:PropertyExpression
+            DTS:Name="SqlStatementSource">"
+INSERT INTO msdb..RevisionBackups(Respaldo, Estatus) VALUES ('" + @[User::Respaldo] +"', 'Error en Backup')
+"</DTS:PropertyExpression>
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{080AAA3D-E159-47A0-98BB-2C92112695F2}"
+              SQLTask:SqlStatementSource="&#xA;INSERT INTO msdb..RevisionBackups(Respaldo, Estatus) VALUES ('', 'Error en Backup')&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="NewParameterName"
+                SQLTask:DtsVariableName="User::Respaldo"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="11"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Restaurar Respaldos\Ingresar Datos Correo OK"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Tarea Ejecutar SQL"
+          DTS:DTSID="{812bc2a7-44b5-478d-833d-cb3620263cf1}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Ingresar Datos Correo OK"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="3">
+          <DTS:Variables />
+          <DTS:PropertyExpression
+            DTS:Name="SqlStatementSource">"
+INSERT INTO msdb..RevisionBackups(Respaldo, Estatus) VALUES ('" + @[User::Respaldo] +"', 'OK')
+"</DTS:PropertyExpression>
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{080AAA3D-E159-47A0-98BB-2C92112695F2}"
+              SQLTask:SqlStatementSource="&#xA;INSERT INTO msdb..RevisionBackups(Respaldo, Estatus) VALUES ('', 'OK')&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::Respaldo"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="16"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Restaurar Respaldos\Nombres Logico DB"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Tarea Ejecutar SQL"
+          DTS:DTSID="{FE1439AE-7C94-4F9D-AA40-EF2D95AF5132}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Nombres Logico DB"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:PropertyExpression
+            DTS:Name="SqlStatementSource">"IF OBJECT_ID('tempdb..#BackupFiles') IS NOT NULL DROP TABLE #BackupFiles
+
+Create table #BackupFiles(
+LogicalName NVARCHAR(128),
+PhysicalName NVARCHAR(260),
+Type CHAR(1),
+FileGroupName NVARCHAR(128),
+Size numeric(20,0),
+MaxSize numeric(20,0),
+Field bigint,
+CreateLSN numeric(25,0),
+DropLSN numeric(25,0),
+UniqueId uniqueidentifier,
+ReadonlyLSN numeric(25,0),
+ReadWriteLSN numeric(25,0),
+BackupSizeInBytes BigInt,
+SourceBlockSize Int,
+FileGroupId int,
+LogGroupGUID uniqueidentifier,
+DifferentialBaseLSN numeric(25,0),
+DifferentialBaseGUID uniqueidentifier,
+IsReadOnly bit,
+IsPresent bit,
+TDEThumprint varbinary(32),
+
+SnapshotUrl varchar(300))
+
+Declare @BackupFilePath VARCHAR(500)
+DECLARE @LogicalNameData varchar(128),@LogicalNameLog varchar(128)
+
+SET @BackupFilePath='" + @[User::RutaDestino]  + "\\"  +  @[User::Respaldo] +"'" + 
+
+"
+insert into tempdb..#BackupFiles EXEC(" + "'RESTORE FILELISTONLY 
+   FROM DISK=''' +@BackupFilePath+ '''
+   ')
+
+SET @LogicalNameData=(SELECT LogicalName FROM tempdb..#BackupFiles WHERE Type='D')
+SET @LogicalNameLog=(SELECT LogicalName FROM tempdb..#BackupFiles WHERE Type='L')
+
+
+
+SELECT @LogicalNameData LogicalNameData,@LogicalNameLog LogicalNameLog
+ "</DTS:PropertyExpression>
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{080AAA3D-E159-47A0-98BB-2C92112695F2}"
+              SQLTask:SqlStatementSource="IF OBJECT_ID('tempdb..#BackupFiles') IS NOT NULL DROP TABLE #BackupFiles&#xA;&#xA;Create table #BackupFiles(&#xA;LogicalName NVARCHAR(128),&#xA;PhysicalName NVARCHAR(260),&#xA;Type CHAR(1),&#xA;FileGroupName NVARCHAR(128),&#xA;Size numeric(20,0),&#xA;MaxSize numeric(20,0),&#xA;Field bigint,&#xA;CreateLSN numeric(25,0),&#xA;DropLSN numeric(25,0),&#xA;UniqueId uniqueidentifier,&#xA;ReadonlyLSN numeric(25,0),&#xA;ReadWriteLSN numeric(25,0),&#xA;BackupSizeInBytes BigInt,&#xA;SourceBlockSize Int,&#xA;FileGroupId int,&#xA;LogGroupGUID uniqueidentifier,&#xA;DifferentialBaseLSN numeric(25,0),&#xA;DifferentialBaseGUID uniqueidentifier,&#xA;IsReadOnly bit,&#xA;IsPresent bit,&#xA;TDEThumprint varbinary(32),&#xA;&#xA;SnapshotUrl varchar(300))&#xA;&#xA;Declare @BackupFilePath VARCHAR(500)&#xA;DECLARE @LogicalNameData varchar(128),@LogicalNameLog varchar(128)&#xA;&#xA;SET @BackupFilePath='C:\Respaldos\'&#xA;insert into tempdb..#BackupFiles EXEC('RESTORE FILELISTONLY &#xA;   FROM DISK=''' +@BackupFilePath+ '''&#xA;   ')&#xA;&#xA;SET @LogicalNameData=(SELECT LogicalName FROM tempdb..#BackupFiles WHERE Type='D')&#xA;SET @LogicalNameLog=(SELECT LogicalName FROM tempdb..#BackupFiles WHERE Type='L')&#xA;&#xA;&#xA;&#xA;SELECT @LogicalNameData LogicalNameData,@LogicalNameLog LogicalNameLog&#xA; "
+              SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ResultBinding
+                SQLTask:ResultName="0"
+                SQLTask:DtsVariableName="User::NombreLogico" />
+              <SQLTask:ResultBinding
+                SQLTask:ResultName="1"
+                SQLTask:DtsVariableName="User::NombreLogicoLog" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="NewParameterName"
+                SQLTask:DtsVariableName="User::Respaldo"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="16"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Restaurar Respaldos\Restaurar Backup"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Tarea Ejecutar SQL"
+          DTS:DTSID="{9C84DB31-0110-4836-9E73-F3EFB91128A0}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Restaurar Backup"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:PropertyExpression
+            DTS:Name="SqlStatementSource">"RESTORE DATABASE [DBVALIDAR] FROM DISK = N'" + @[User::RutaDestino] + "\\" + @[User::Respaldo] +   "' WITH FILE = 1,  
+MOVE N'" + @[User::NombreLogico]  +  "' TO N'" +  @[User::RutaDatos]  + "\\" + "DBVALIDAR.mdf', " +
+ " 
+MOVE N'" + @[User::NombreLogicoLog]  +  "' TO N'" + @[User::RutaDatos] + "\\" + "DBVALIDAR.ldf', " + "NOUNLOAD, " + "REPLACE, STATS = 10 "</DTS:PropertyExpression>
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{080AAA3D-E159-47A0-98BB-2C92112695F2}"
+              SQLTask:SqlStatementSource="RESTORE DATABASE [DBVALIDAR] FROM DISK = N'C:\Respaldos\' WITH FILE = 1,  &#xA;MOVE N'' TO N'C:\Respaldos\Data\DBVALIDAR.mdf',  &#xA;MOVE N'' TO N'C:\Respaldos\Data\DBVALIDAR.ldf', NOUNLOAD, REPLACE, STATS = 10 " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="BD"
+                SQLTask:DtsVariableName="User::Respaldo"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="16"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Restaurar Respaldos.PrecedenceConstraints[Restricción]"
+          DTS:CreationName=""
+          DTS:DTSID="{2D4129F3-F479-4125-9889-1F59141D8DBE}"
+          DTS:From="Package\Restaurar Respaldos\Nombres Logico DB"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Restricción"
+          DTS:To="Package\Restaurar Respaldos\Restaurar Backup" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Restaurar Respaldos.PrecedenceConstraints[Restricción 1]"
+          DTS:CreationName=""
+          DTS:DTSID="{B97D7CEA-0E1F-4BAF-B083-417C2F599C89}"
+          DTS:From="Package\Restaurar Respaldos\Restaurar Backup"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Restricción 1"
+          DTS:To="Package\Restaurar Respaldos\Chequear estructura" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Restaurar Respaldos.PrecedenceConstraints[Restricción 2]"
+          DTS:CreationName=""
+          DTS:DTSID="{DBF8C94F-D1A3-482C-9A9A-415AFB4C6964}"
+          DTS:From="Package\Restaurar Respaldos\Chequear estructura"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Restricción 2"
+          DTS:To="Package\Restaurar Respaldos\Borrar BD" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Restaurar Respaldos.PrecedenceConstraints[Restricción 3]"
+          DTS:CreationName=""
+          DTS:DTSID="{2CA9DFD6-5336-4868-AC27-5162C1504E5C}"
+          DTS:From="Package\Restaurar Respaldos\Restaurar Backup"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Restricción 3"
+          DTS:To="Package\Restaurar Respaldos\Error Restore"
+          DTS:Value="1" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Restaurar Respaldos.PrecedenceConstraints[Restricción 4]"
+          DTS:CreationName=""
+          DTS:DTSID="{A6A67362-76D0-4901-9137-48DFBC330322}"
+          DTS:From="Package\Restaurar Respaldos\Chequear estructura"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Restricción 4"
+          DTS:To="Package\Restaurar Respaldos\Error CheckDB"
+          DTS:Value="1" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Restaurar Respaldos.PrecedenceConstraints[Restricción 5]"
+          DTS:CreationName=""
+          DTS:DTSID="{55422F41-D5F2-4CAF-8BC4-24121BEB89DE}"
+          DTS:From="Package\Restaurar Respaldos\Chequear estructura"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Restricción 5"
+          DTS:To="Package\Restaurar Respaldos\Ingresar Datos Correo OK" />
+      </DTS:PrecedenceConstraints>
+      <DTS:ForEachVariableMappings>
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{31F1FDDC-054A-47D8-B440-1A50190DFD4D}"
+          DTS:ObjectName="{31F1FDDC-054A-47D8-B440-1A50190DFD4D}"
+          DTS:ValueIndex="0"
+          DTS:VariableName="User::Respaldo" />
+      </DTS:ForEachVariableMappings>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restricción]"
+      DTS:CreationName=""
+      DTS:DTSID="{0CB6B0B8-2BB9-4326-8E11-9A187BC3C1AF}"
+      DTS:From="Package\Eliminar backups viejos"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restricción"
+      DTS:To="Package\Copiar Respaldos" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restricción 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{498E7D73-5E17-4E2E-B5D7-90C8231139D2}"
+      DTS:From="Package\Copiar Respaldos"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restricción 1"
+      DTS:To="Package\Restaurar Respaldos" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restricción 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{3FCA804F-E974-41F3-8B7B-825095F2CB07}"
+      DTS:From="Package\Restaurar Respaldos"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restricción 2"
+      DTS:To="Package\Enviar Correo" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--Esta sección CDATA contiene la información de diseño del paquete. Esta sección incluye información como, por ejemplo, las coordenadas (x,y), el ancho y el alto.-->
+<!--Si edita manualmente esta sección y comete un error, puede eliminarlo. -->
+<!--El paquete podrá cargarse normalmente, pero se perderá la información de diseño anterior y el diseñador reorganizará los elementos automáticamente en la superficie de diseño.-->
+<Objects
+  Version="8">
+  <!--Cada uno de los nodos siguientes contiene propiedades que no afectan al comportamiento en tiempo de ejecución.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="157,42"
+          Id="Package\Copiar Respaldos\Copiar Archivos"
+          TopLeft="58,31" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="236,119"
+          Size="236,162"
+          Id="Package\Copiar Respaldos"
+          TopLeft="378,148" />
+        <NodeLayout
+          Size="194,42"
+          Id="Package\Eliminar backups viejos"
+          TopLeft="406,21" />
+        <NodeLayout
+          Size="147,42"
+          Id="Package\Enviar Correo"
+          TopLeft="390,449" />
+        <NodeLayout
+          Size="128,42"
+          Id="Package\Restaurar Respaldos\Borrar BD"
+          TopLeft="24,303" />
+        <NodeLayout
+          Size="176,42"
+          Id="Package\Restaurar Respaldos\Chequear estructura"
+          TopLeft="40,199" />
+        <NodeLayout
+          Size="176,42"
+          Id="Package\Restaurar Respaldos\Error CheckDB"
+          TopLeft="291,205" />
+        <NodeLayout
+          Size="145,42"
+          Id="Package\Restaurar Respaldos\Error Restore"
+          TopLeft="294,104" />
+        <NodeLayout
+          Size="167,44"
+          Id="Package\Restaurar Respaldos\Ingresar Datos Correo OK"
+          TopLeft="173,301" />
+        <NodeLayout
+          Size="176,42"
+          Id="Package\Restaurar Respaldos\Nombres Logico DB"
+          TopLeft="34,27" />
+        <NodeLayout
+          Size="157,42"
+          Id="Package\Restaurar Respaldos\Restaurar Backup"
+          TopLeft="43,109" />
+        <EdgeLayout
+          Id="Package\Restaurar Respaldos.PrecedenceConstraints[Restricción]"
+          TopLeft="121.75,69">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,40"
+              Start="0,0"
+              End="0,32.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,32.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Restaurar Respaldos.PrecedenceConstraints[Restricción 1]"
+          TopLeft="124.75,151">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,48"
+              Start="0,0"
+              End="0,40.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,40.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Restaurar Respaldos.PrecedenceConstraints[Restricción 2]"
+          TopLeft="100,241">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-12,62"
+              Start="0,0"
+              End="-12,54.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,21.1351351351351" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,21.1351351351351"
+                    Point2="0,25.1351351351351"
+                    Point3="-4,25.1351351351351" />
+                  <mssgle:LineSegment
+                    End="-8,25.1351351351351" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-8,25.1351351351351"
+                    Point2="-12,25.1351351351351"
+                    Point3="-12,29.1351351351351" />
+                  <mssgle:LineSegment
+                    End="-12,54.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Restaurar Respaldos.PrecedenceConstraints[Restricción 3]"
+          TopLeft="200,127.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="94,0"
+              Start="0,0"
+              End="86.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="86.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="31.72130859375,5,23.0573828125,9.421875"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Restaurar Respaldos.PrecedenceConstraints[Restricción 4]"
+          TopLeft="216,223">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="75,0"
+              Start="0,0"
+              End="67.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="67.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="22.22130859375,5,23.0573828125,9.421875"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Restaurar Respaldos.PrecedenceConstraints[Restricción 5]"
+          TopLeft="156,241">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="100.5,60"
+              Start="0,0"
+              End="100.5,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.3243243243243" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,20.3243243243243"
+                    Point2="0,24.3243243243243"
+                    Point3="4,24.3243243243243" />
+                  <mssgle:LineSegment
+                    End="96.5,24.3243243243243" />
+                  <mssgle:CubicBezierSegment
+                    Point1="96.5,24.3243243243243"
+                    Point2="100.5,24.3243243243243"
+                    Point3="100.5,28.3243243243243" />
+                  <mssgle:LineSegment
+                    End="100.5,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="498,478"
+          Size="498,521"
+          Id="Package\Restaurar Respaldos"
+          TopLeft="683,86" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restricción]"
+          TopLeft="499.5,63">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,85"
+              Start="0,0"
+              End="0,77.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,77.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restricción 1]"
+          TopLeft="614,229">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="69,117.5"
+              Start="0,0"
+              End="61.5,117.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="30.5,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="30.5,0"
+                    Point2="34.5,0"
+                    Point3="34.5,4" />
+                  <mssgle:LineSegment
+                    End="34.5,113.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="34.5,113.5"
+                    Point2="34.5,117.5"
+                    Point3="38.5,117.5" />
+                  <mssgle:LineSegment
+                    End="61.5,117.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restricción 2]"
+          TopLeft="683,432">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-146,38"
+              Start="0,0"
+              End="-138.5,38">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-54.6681974741676,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-54.6681974741676,0"
+                    Point2="-58.6681974741676,0"
+                    Point3="-58.6681974741676,4" />
+                  <mssgle:LineSegment
+                    End="-58.6681974741676,34" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-58.6681974741676,34"
+                    Point2="-58.6681974741676,38"
+                    Point3="-62.6681974741676,38" />
+                  <mssgle:LineSegment
+                    End="-138.5,38" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
